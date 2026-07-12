@@ -2,7 +2,7 @@
   "name": "Synergy Quotation App",
   "short_name": "Synergy Quote",
   "description": "Synergy Distributors — Delta Electronics IA product quotation & catalogue app",
-  "start_url": "./Synergy_Quotation_App_Mobile_v8.html",
+  "start_url": "./Synergy_Quotation_App_Mobile_v8-1.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",

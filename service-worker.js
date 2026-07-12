@@ -2,10 +2,10 @@
 // Caches the app shell so it works offline once installed.
 // Bump CACHE_NAME whenever you publish a new version so old caches don't linger.
 
-const CACHE_NAME = 'synergy-quote-v8';
+const CACHE_NAME = 'synergy-quote-v8-1';
 const PRECACHE_URLS = [
   './',
-  './Synergy_Quotation_App_Mobile_v8.html',
+  './Synergy_Quotation_App_Mobile_v8-1.html',
   './Synergy_Quotation_App_Desktop_v8.html',
   './manifest.json',
   './manifest-desktop.json',
@@ -36,23 +36,19 @@ self.addEventListener('activate', (event) => {
 });
 
 // Fetch: cache-first for same-origin app files, network passthrough for everything else
-// (jsPDF CDN, WhatsApp links, Google Fonts, etc. always go to the network)
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
-
   if (url.origin !== self.location.origin) {
-    return; // let cross-origin requests (CDN, WhatsApp, fonts) go straight to network
+    return;
   }
-
   event.respondWith(
     caches.match(event.request).then((cached) => {
       if (cached) return cached;
       return fetch(event.request).then((response) => {
-        // Cache a copy of newly-fetched same-origin files for next time offline
         const responseClone = response.clone();
         caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
         return response;
-      }).catch(() => cached); // if offline and not cached, just fail gracefully
+      }).catch(() => cached);
     })
   );
 });
